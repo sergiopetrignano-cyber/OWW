@@ -940,13 +940,6 @@ header{
 </div>
 
 
-<!-- ════════════════════════════════════════════════
-     FIREBASE SETUP SCREEN (prima esecuzione)
-     ════════════════════════════════════════════════ -->
-<div id="scr-firebase" class="screen" style="display:none;justify-content:flex-start;padding-top:30px">
-  <div class="fb-setup-card">
-    <div style="text-align:center;margin-bottom:16px">
-      <div style="font-size:40px;margin-bottom:8px">🔥</div>
       <h2 style="color:var(--amber);font-size:11px;margin:0 0 6px">CONNETTI AL WEST</h2>
       <p style="color:var(--warm-grey);font-family:'VT323',monospace;font-size:14px;margin:0;line-height:1.4">
         Per giocare con altri pistoleri in zona serve un database gratuito Firebase.<br>
@@ -2420,14 +2413,10 @@ function confirmName() {
   const name = (inp ? inp.value.trim() : '') || 'STRANIERO';
   game.playerName = name.toUpperCase().substring(0,16);
   document.getElementById('scr-name').style.display='none';
-  // Mostra setup Firebase solo se non già configurato
+  // Firebase opzionale: legge URL se già salvato, altrimenti offline
   const fbUrl = localStorage.getItem('oww_fb_url');
-  if (fbUrl) {
-    window._fbUrl = fbUrl;
-    startGame(_pendingRole);
-  } else {
-    document.getElementById('scr-firebase').style.display='flex';
-  }
+  if (fbUrl && fbUrl !== 'OFFLINE') window._fbUrl = fbUrl;
+  startGame(_pendingRole);
 }
 function switchView(id, el) {
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -4646,6 +4635,22 @@ window.fbInit = function() {
 
 })();
 
+
+window.fbConnectMini = function() {
+  var raw = (document.getElementById('fb-url-mini').value || '').trim().replace(/\/+$/, '');
+  if (!raw.startsWith('http')) { alert('URL non valido'); return; }
+  localStorage.setItem('oww_fb_url', raw);
+  window._fbUrl = raw;
+  document.getElementById('fb-mini-setup').style.display = 'none';
+  if (window.fbStartMultiplayer) fbStartMultiplayer();
+  var el = document.getElementById('fb-status-txt');
+  if (el) el.textContent = '🟢 Multiplayer attivo: ' + raw.replace('https://','').split('.')[0];
+  toast('🔥 Firebase connesso! Giocatori reali visibili.');
+};
+
+// Mostra stato Firebase nella scheda stats
+var _fbOrigShowStats = window.showView;
+
 </script>
 
 
@@ -4709,6 +4714,27 @@ window.fbInit = function() {
     <button class="mc-btn gold" id="ch-maxhp-claim" style="display:none;width:100%;margin:16px 0 0" onclick="chMaxHpClaim()">
       ❤️ RISCUOTI +15 VITA MAX
     </button>
+  </div>
+</div>
+
+
+<!-- Link opzionale Firebase (nascosto, accessibile da impostazioni) -->
+<div id="fb-mini-setup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:5000;flex-direction:column;align-items:center;justify-content:center;padding:20px">
+  <div class="fb-setup-card">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="font-size:36px">🔥</div>
+      <h2 style="color:var(--amber);font-size:10px;margin:8px 0 4px">ATTIVA MULTIPLAYER</h2>
+      <p style="color:var(--warm-grey);font-family:'VT323',monospace;font-size:14px;margin:0;line-height:1.4">
+        Crea un progetto gratuito su firebase.google.com<br>
+        → Realtime Database → modalità test<br>
+        Poi incolla qui l'URL del database:
+      </p>
+    </div>
+    <input class="fb-input" id="fb-url-mini" type="url"
+      placeholder="https://tuo-progetto-rtdb.firebaseio.com"
+      autocomplete="off" autocapitalize="none" spellcheck="false">
+    <button class="mc-btn gold" style="width:100%;margin:8px 0 0" onclick="fbConnectMini()">🔥 CONNETTI</button>
+    <button class="mc-btn sm" style="width:100%;margin:6px 0 0;opacity:.6" onclick="document.getElementById('fb-mini-setup').style.display='none'">← ANNULLA</button>
   </div>
 </div>
 
