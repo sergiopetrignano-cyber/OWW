@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Old Wild Web">
 <meta name="theme-color" content="#0e0a06">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230e0a06'/><text y='75' x='10' font-size='80'>🤠</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230e0a06'/%3E%3Ctext y='80' x='10' font-size='80'%3E%F0%9F%A4%A0%3C/text%3E%3C/svg%3E">
 <title>OLD WILD WEB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -778,69 +778,6 @@ header{
 }
 .coin-spinning{animation:coinSpin 1.6s cubic-bezier(.35,0,.25,1) forwards}
 
-
-/* ── FIREBASE SETUP SCREEN ─────────────────────── */
-#scr-firebase{
-  background:radial-gradient(ellipse at 50% 30%,#1a0e06 0%,#0e0a06 70%);
-  padding:20px;overflow-y:auto
-}
-.fb-setup-card{
-  background:var(--bg-card);
-  border:1px solid rgba(245,166,35,.3);
-  border-top:2px solid var(--amber);
-  border-radius:8px;
-  padding:20px;width:90%;max-width:340px;
-  box-shadow:0 8px 32px rgba(0,0,0,.7)
-}
-.fb-step{
-  display:flex;gap:12px;align-items:flex-start;
-  margin:12px 0;font-family:'VT323',monospace;font-size:15px;
-  color:var(--warm-grey);line-height:1.4
-}
-.fb-step-num{
-  background:var(--amber);color:var(--ink);
-  width:24px;height:24px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-family:'Press Start 2P',monospace;
-  flex-shrink:0;margin-top:2px
-}
-.fb-input{
-  width:100%;padding:10px 12px;
-  background:rgba(245,166,35,.06);
-  border:1px solid rgba(245,166,35,.3);border-radius:4px;
-  color:var(--amber-l);font-family:'VT323',monospace;font-size:15px;
-  margin:6px 0;
-}
-.fb-input:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 2px rgba(245,166,35,.15)}
-.fb-input::placeholder{color:rgba(245,166,35,.3)}
-/* Indicatore giocatori online */
-#online-badge{
-  position:absolute;bottom:70px;right:8px;
-  background:rgba(14,10,6,.92);
-  border:1px solid rgba(245,166,35,.35);border-radius:20px;
-  padding:5px 10px;z-index:600;
-  font-family:'VT323',monospace;font-size:15px;color:var(--cream);
-  display:none;gap:6px;align-items:center;
-  box-shadow:0 2px 12px rgba(0,0,0,.6)
-}
-#online-badge .dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--sage-l);
-  box-shadow:0 0 6px var(--sage-l);
-  animation:pulse .9s ease-in-out infinite
-}
-#online-badge .dot.red{background:var(--rust-l);box-shadow:0 0 6px var(--rust-l)}
-/* Banner giocatore reale vicino */
-#real-player-alert{
-  display:none;position:absolute;top:60px;left:8px;right:8px;
-  background:linear-gradient(135deg,rgba(192,57,43,.9),rgba(139,26,16,.9));
-  border:1px solid var(--rust-l);border-radius:6px;
-  padding:10px 14px;z-index:601;
-  font-family:'VT323',monospace;font-size:16px;color:#fff;
-  text-align:center;animation:fadeIn .3s ease-out;
-  box-shadow:0 4px 20px rgba(192,57,43,.4)
-}
-
 /* END STYLES */
 </style>
 </head>
@@ -937,67 +874,6 @@ header{
       onkeydown="if(event.key==='Enter')confirmName()">
     <button class="mc-btn gold" onclick="confirmName()" style="width:100%;margin:0">▶ ENTRA NELLA FRONTIERA</button>
   </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-     FIREBASE SETUP SCREEN (prima esecuzione)
-     ════════════════════════════════════════════════ -->
-<div id="scr-firebase" class="screen" style="display:none;justify-content:flex-start;padding-top:30px">
-  <div class="fb-setup-card">
-    <div style="text-align:center;margin-bottom:16px">
-      <div style="font-size:40px;margin-bottom:8px">🔥</div>
-      <h2 style="color:var(--amber);font-size:11px;margin:0 0 6px">CONNETTI AL WEST</h2>
-      <p style="color:var(--warm-grey);font-family:'VT323',monospace;font-size:14px;margin:0;line-height:1.4">
-        Per giocare con altri pistoleri in zona serve un database gratuito Firebase.<br>
-        Si fa in 3 minuti, giura!
-      </p>
-    </div>
-
-    <div class="fb-step">
-      <div class="fb-step-num">1</div>
-      <div>Vai su <span style="color:var(--amber)">firebase.google.com</span> e crea un nuovo progetto (gratis)</div>
-    </div>
-    <div class="fb-step">
-      <div class="fb-step-num">2</div>
-      <div>Entra in <span style="color:var(--amber)">Realtime Database → Crea database</span>, scegli qualsiasi zona, avvia in <b>modalità test</b></div>
-    </div>
-    <div class="fb-step">
-      <div class="fb-step-num">3</div>
-      <div>Copia l'URL del database (es: <span style="color:var(--amber-l)">https://mio-progetto-default-rtdb.firebaseio.com</span>) e incollalo qui sotto:</div>
-    </div>
-
-    <input class="fb-input" id="fb-url-input" type="url"
-      placeholder="https://tuo-progetto-default-rtdb.firebaseio.com"
-      autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-
-    <div style="margin-top:6px;margin-bottom:14px">
-      <p style="color:var(--warm-grey);font-family:'VT323',monospace;font-size:13px;margin:0">
-        ⚠️ Nelle regole del database (Regole → modifica) incolla questo e pubblica:
-      </p>
-      <div style="background:rgba(0,0,0,.4);border-radius:4px;padding:8px;margin-top:6px;font-family:monospace;font-size:11px;color:#88cc88;word-break:break-all">
-        {"rules":{".read":true,".write":true}}
-      </div>
-    </div>
-
-    <button class="mc-btn gold" style="width:100%;margin:0" onclick="fbConnect()">
-      🔥 CONNETTI E GIOCA
-    </button>
-    <button class="mc-btn sm" style="width:100%;margin:8px 0 0;opacity:.6" onclick="fbSkip()">
-      → Gioca offline (solo NPC, no giocatori reali)
-    </button>
-  </div>
-</div>
-
-<!-- Badge giocatori online (sulla mappa) -->
-<div id="online-badge" style="display:none">
-  <div class="dot" id="online-dot"></div>
-  <span id="online-count">0 pistoleri online</span>
-</div>
-
-<!-- Alert giocatore reale vicino -->
-<div id="real-player-alert" style="display:none">
-  🔴 PISTOLERO REALE IN ZONA! Distanza: <span id="rpa-dist">?</span>m
 </div>
 
 <!-- GAME UI -->
@@ -2420,14 +2296,7 @@ function confirmName() {
   const name = (inp ? inp.value.trim() : '') || 'STRANIERO';
   game.playerName = name.toUpperCase().substring(0,16);
   document.getElementById('scr-name').style.display='none';
-  // Mostra setup Firebase solo se non già configurato
-  const fbUrl = localStorage.getItem('oww_fb_url');
-  if (fbUrl) {
-    window._fbUrl = fbUrl;
-    startGame(_pendingRole);
-  } else {
-    document.getElementById('scr-firebase').style.display='flex';
-  }
+  startGame(_pendingRole);
 }
 function switchView(id, el) {
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -2589,12 +2458,7 @@ function startGeolocation() {
   watchId = navigator.geolocation.watchPosition(updatePlayerPosition, err=>console.error(err), opts);
   scheduleEncountersForDay();
   startStagecoachWatch();
-  // NPC simulati (fallback quando non ci sono giocatori reali vicini)
-  setInterval(simulateNearbyPlayers, 6000);
-  // Multiplayer reale via Firebase
-  if (window._fbUrl) {
-    fbStartMultiplayer();
-  }
+  if (CONFIG.SIMULATE_ENEMIES) setInterval(simulateNearbyPlayers, 6000);
 }
 
 function updatePlayerPosition(pos) {
@@ -3330,15 +3194,10 @@ function simulateNearbyPlayers() {
 
 function checkNearbyPlayers() {
   if (!game.position || game.inSafeZone || currentEncounter || duelState.active) return;
-  nearbyPlayers.forEach((player, id) => {
-    const dist = calculateDistance(game.position.lat, game.position.lng, player.lat, player.lng);
-    if (dist < CONFIG.ENCOUNTER_RADIUS) {
-      // Giocatori REALI: duelli illimitati
-      // NPC simulati: max 5/giorno
-      if (player._real || canHaveEncounterToday()) {
-        triggerEncounter(player, dist);
-      }
-    }
+  if (!canHaveEncounterToday()) return;
+  nearbyPlayers.forEach((player,id) => {
+    const dist = calculateDistance(game.position.lat,game.position.lng,player.lat,player.lng);
+    if (dist < CONFIG.ENCOUNTER_RADIUS) triggerEncounter(player, dist);
   });
 }
 
@@ -3354,9 +3213,6 @@ function triggerEncounter(opponent, dist) {
   document.getElementById('encounter-timer').innerText = `${timeLeft}s`;
   encounterTimeout = setInterval(() => { timeLeft--; document.getElementById('encounter-timer').innerText=`${timeLeft}s`; if(timeLeft<=0){clearInterval(encounterTimeout);declineDuel();} }, 1000);
   addLog(t('logEncountered',opponent.name,Math.round(dist)),'danger');
-  if (opponent._real) {
-    addLog('⚡ GIOCATORE REALE — duello illimitato!', 'gold');
-  }
   // Show remaining encounters indicator
   const daily = getDailyEncounters();
   const remaining = 5 - daily.count;
@@ -3512,7 +3368,7 @@ function loadGame() {
   if(game.role==='Fuorilegge'||game.role==='Outlaw'||game.role==='Hors-la-loi'||game.role==='Forajido'||game.role==='Gesetzloser') document.getElementById('black-market').style.display='block';
   document.getElementById('scr-start').style.display='none';
   document.getElementById('game-ui').style.display='flex';
-  initializeMap(); updateUI(); addLog(t('logSaved'),'info'); if(window.fbInit) fbInit();
+  initializeMap(); updateUI(); addLog(t('logSaved'),'info');
 }
 function gameOver() { alert(t('gameOverMsg')); localStorage.removeItem('oww_save'); location.reload(); }
 
@@ -4414,237 +4270,6 @@ window.refreshMaxHpPanel = function() {
 };
 
 })(); // IIFE end
-
-
-// ============================================================
-// FIREBASE MULTIPLAYER SYSTEM
-// ============================================================
-(function() {
-
-var FB_URL    = null;   // es. https://mio-progetto-default-rtdb.firebaseio.com
-var FB_PATH   = '/oww/players';
-var FB_IV     = null;   // setInterval publish
-var FB_POLL   = null;   // setInterval poll
-var FB_CLEANUP= null;   // setInterval cleanup
-var PUBLISH_MS = 12000; // pubblica posizione ogni 12s
-var POLL_MS    = 10000; // legge giocatori ogni 10s
-var STALE_MS   = 60000; // giocatore stale dopo 60s
-
-// ── Setup UI ─────────────────────────────────────────────────
-window.fbConnect = function() {
-  var raw = (document.getElementById('fb-url-input').value || '').trim();
-  if (!raw) { alert('Inserisci l\'URL del database Firebase!'); return; }
-  // Normalizza: rimuovi slash finale
-  raw = raw.replace(/\/+$/, '');
-  if (!raw.startsWith('http')) { alert('URL non valido. Deve iniziare con https://'); return; }
-  localStorage.setItem('oww_fb_url', raw);
-  window._fbUrl = raw;
-  document.getElementById('scr-firebase').style.display = 'none';
-  startGame(_pendingRole);
-};
-
-window.fbSkip = function() {
-  // Salva 'offline' come flag
-  localStorage.setItem('oww_fb_url', 'OFFLINE');
-  window._fbUrl = 'OFFLINE';
-  document.getElementById('scr-firebase').style.display = 'none';
-  startGame(_pendingRole);
-};
-
-// ── Core Firebase REST ────────────────────────────────────────
-function fbPut(path, data) {
-  if (!FB_URL || FB_URL === 'OFFLINE') return Promise.resolve();
-  return fetch(FB_URL + path + '.json', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).catch(function() {});
-}
-
-function fbGet(path) {
-  if (!FB_URL || FB_URL === 'OFFLINE') return Promise.resolve(null);
-  return fetch(FB_URL + path + '.json')
-    .then(function(r) { return r.json(); })
-    .catch(function() { return null; });
-}
-
-function fbDelete(path) {
-  if (!FB_URL || FB_URL === 'OFFLINE') return Promise.resolve();
-  return fetch(FB_URL + path + '.json', { method: 'DELETE' }).catch(function() {});
-}
-
-// ── Publish own position ──────────────────────────────────────
-function fbPublish() {
-  if (!game.position || !FB_URL || FB_URL === 'OFFLINE') return;
-  var data = {
-    id:     game.id,
-    name:   game.playerName || 'STRANIERO',
-    role:   game.role,
-    lat:    game.position.lat,
-    lng:    game.position.lng,
-    reflex: game.reflex,
-    lv:     game.lv,
-    ts:     Date.now()
-  };
-  fbPut(FB_PATH + '/' + game.id, data);
-}
-
-// ── Poll other players ────────────────────────────────────────
-function fbPoll() {
-  if (!game.position || !FB_URL || FB_URL === 'OFFLINE') return;
-  fbGet(FB_PATH).then(function(data) {
-    if (!data) return;
-    var now = Date.now();
-    var onlineCount = 0;
-    var nearest = null;
-    var nearestDist = Infinity;
-
-    Object.keys(data).forEach(function(key) {
-      var p = data[key];
-      if (!p || p.id === game.id) return;
-      if (now - p.ts > STALE_MS) return;  // ignora stale
-      onlineCount++;
-
-      // Calcola distanza
-      var dist = calculateDistance(game.position.lat, game.position.lng, p.lat, p.lng);
-
-      // Aggiorna/inserisce nella mappa locale con flag _real
-      var existing = nearbyPlayers.get(p.id);
-      nearbyPlayers.set(p.id, {
-        id:     p.id,
-        name:   p.name,
-        role:   p.role,
-        lat:    p.lat,
-        lng:    p.lng,
-        reflex: p.reflex || 300,
-        level:  p.lv || 1,
-        _real:  true    // ← flag: questo è un giocatore reale
-      });
-
-      // Aggiorna marker sulla mappa
-      fbUpdateMarker(p, dist);
-
-      if (dist < nearestDist) { nearestDist = dist; nearest = p; }
-    });
-
-    // Rimuovi dalla mappa locale i giocatori non più nel DB
-    nearbyPlayers.forEach(function(player, id) {
-      if (player._real && !data[id]) nearbyPlayers.delete(id);
-    });
-
-    // Badge online
-    var badge = document.getElementById('online-badge');
-    var dot   = document.getElementById('online-dot');
-    var countEl = document.getElementById('online-count');
-    if (badge) {
-      badge.style.display = onlineCount > 0 ? 'flex' : 'none';
-      if (countEl) countEl.textContent = onlineCount + (onlineCount === 1 ? ' pistolero online' : ' pistoleri online');
-    }
-
-    // Alert giocatore vicino (<200m)
-    var alertEl = document.getElementById('real-player-alert');
-    var distEl  = document.getElementById('rpa-dist');
-    if (alertEl && nearest && nearestDist < 200) {
-      alertEl.style.display = 'block';
-      if (distEl) distEl.textContent = Math.round(nearestDist);
-      // Auto-hide dopo 4s
-      clearTimeout(window._rpaTimeout);
-      window._rpaTimeout = setTimeout(function() { alertEl.style.display = 'none'; }, 4000);
-    }
-  });
-}
-
-// ── Markers giocatori reali sulla mappa ───────────────────────
-var _realMarkers = {};
-function fbUpdateMarker(p, dist) {
-  if (!map) return;
-  var role = p.role || '';
-  var emoji = role.indexOf('Fuorilegge') >= 0 || role.indexOf('Outlaw') >= 0 ? '\uD83D\uDC0D'
-    : role.indexOf('Pistolero') >= 0 || role.indexOf('Gunslinger') >= 0 ? '\uD83C\uDFAF' : '\uD83E\uDD85';
-  var html = '<div style="text-align:center;filter:drop-shadow(0 3px 6px rgba(0,0,0,.8))">'
-    + '<div style="font-size:26px">' + emoji + '</div>'
-    + '<div style="background:rgba(14,10,6,.9);color:#ffd166;font-family:\'Press Start 2P\',monospace;'
-    + 'font-size:6px;padding:1px 4px;border:1px solid rgba(245,166,35,.5);border-radius:2px;white-space:nowrap;margin-top:2px">'
-    + (p.name || '?') + '</div></div>';
-  var icon = L.divIcon({ className: '', html: html, iconSize: [60, 50], iconAnchor: [30, 25] });
-  if (_realMarkers[p.id]) {
-    _realMarkers[p.id].setLatLng([p.lat, p.lng]);
-    _realMarkers[p.id].setIcon(icon);
-  } else {
-    _realMarkers[p.id] = L.marker([p.lat, p.lng], { icon: icon }).addTo(map);
-  }
-}
-
-function fbRemoveMarker(id) {
-  if (_realMarkers[id] && map) { map.removeLayer(_realMarkers[id]); delete _realMarkers[id]; }
-}
-
-// ── Cleanup stale players from DB ────────────────────────────
-function fbCleanup() {
-  if (!FB_URL || FB_URL === 'OFFLINE') return;
-  fbGet(FB_PATH).then(function(data) {
-    if (!data) return;
-    var now = Date.now();
-    Object.keys(data).forEach(function(key) {
-      var p = data[key];
-      if (p && now - p.ts > STALE_MS * 3) {
-        fbDelete(FB_PATH + '/' + key);
-        fbRemoveMarker(key);
-      }
-    });
-  });
-}
-
-// ── Start / Stop ──────────────────────────────────────────────
-window.fbStartMultiplayer = function() {
-  FB_URL = window._fbUrl || localStorage.getItem('oww_fb_url');
-  if (!FB_URL || FB_URL === 'OFFLINE') return;
-
-  console.log('[OWW] Firebase multiplayer attivo:', FB_URL);
-  addLog('🌐 Multiplayer ATTIVO — altri pistoleri visibili in zona', 'gold');
-
-  // Pubblica subito, poi ogni 12s
-  fbPublish();
-  FB_IV = setInterval(fbPublish, PUBLISH_MS);
-
-  // Leggi altri giocatori ogni 10s
-  FB_POLL = setInterval(fbPoll, POLL_MS);
-  fbPoll(); // subito
-
-  // Pulizia DB ogni 5 minuti
-  FB_CLEANUP = setInterval(fbCleanup, 300000);
-
-  // Rimuovi se chiudi la pagina
-  window.addEventListener('beforeunload', function() {
-    fbDelete(FB_PATH + '/' + game.id);
-  });
-
-  // Aggiorna posizione anche quando il GPS aggiorna
-  var _origUpdate = window.updatePlayerPosition;
-  if (_origUpdate) {
-    window._fbLastPub = 0;
-    var _fbWrapped = function(pos) {
-      _origUpdate(pos);
-      var now = Date.now();
-      if (now - window._fbLastPub > 8000) {
-        window._fbLastPub = now;
-        fbPublish();
-      }
-    };
-    // Hook non intrusivo: usa il geolocation watch già avviato
-  }
-};
-
-// Esponi per loadGame (partita salvata già con Firebase configurato)
-window.fbInit = function() {
-  var url = window._fbUrl || localStorage.getItem('oww_fb_url');
-  if (url && url !== 'OFFLINE') {
-    window._fbUrl = url;
-    fbStartMultiplayer();
-  }
-};
-
-})();
 
 </script>
 
